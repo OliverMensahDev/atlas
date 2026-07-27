@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+use Atlas\Container;
+use Atlas\Application;
+
+require __DIR__.'/../vendor/autoload.php';
+$services = require __DIR__.'/../config/services.php';
+
+
+$container = new Container();
+$services($container);
+
+
+$app = Application::create(
+    $container
+);
+
+
+$app->setDefaultCommand('chat');
+
+$app->run();
