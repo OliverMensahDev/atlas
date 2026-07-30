@@ -2,6 +2,8 @@
 
 use Atlas\Container;
 use Atlas\AI\ChatService;
+use Atlas\Config\AIConfig;
+use Symfony\Component\Yaml\Yaml;
 use Atlas\CLI\ChatCommand;
 use Atlas\AI\LLMManager;
 use Atlas\AI\Providers\DigitalOceanInferenceClient;
@@ -92,6 +94,21 @@ return function(Container $container) {
     );
 
     /*
+    * Register AI Configuration
+    */
+    $container->set(
+        AIConfig::class,
+        function() {
+
+            $config = Yaml::parseFile(
+                __DIR__ . '/ai.yaml'
+            );
+
+            return new AIConfig($config);
+        }
+    );
+
+    /*
      * Register Chat Command
      */
     $container->set(
@@ -101,7 +118,8 @@ return function(Container $container) {
             return new ChatCommand(
                 $container->get(
                     ChatService::class
-                )
+                ),
+                $container->get(AIConfig::class)
             );
         }
     );
