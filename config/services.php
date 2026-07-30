@@ -4,6 +4,7 @@ use Atlas\Container;
 use Atlas\AI\ChatService;
 use Atlas\CLI\ChatCommand;
 use Atlas\AI\LLMManager;
+use Atlas\AI\Providers\DigitalOceanInferenceClient;
 use Atlas\AI\Providers\OpenAIClient;
 use Atlas\AI\Providers\GeminiClient;
 
@@ -32,6 +33,16 @@ return function(Container $container) {
         }
     );
 
+    /*
+     * Register DigitalOcean Inference
+     */
+    $container->set(
+        DigitalOceanInferenceClient::class,
+        function() {
+            return new DigitalOceanInferenceClient();
+        }
+    );
+
 
     /*
      * Register LLM Manager
@@ -52,6 +63,11 @@ return function(Container $container) {
             $manager->register(
                 "gemini",
                 $container->get(GeminiClient::class)
+            );
+
+            $manager->register(
+                "digitalocean",
+                $container->get(DigitalOceanInferenceClient::class)
             );
 
 

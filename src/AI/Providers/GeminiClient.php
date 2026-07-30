@@ -2,12 +2,13 @@
 
 namespace Atlas\AI\Providers;
 
+use Atlas\AI\ChatRequest;
 use Atlas\AI\Contracts\LLMInterface;
 
 class GeminiClient implements LLMInterface
 {
-    public function chat(string $message): string
+    public function chat(ChatRequest $request): string
     {
-        return "Gemini: {$message}";
+        return "Gemini: {$request->message}";
     }
 }

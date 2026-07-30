@@ -3,11 +3,12 @@
 namespace Atlas\AI\Providers;
 
 use Atlas\AI\Contracts\LLMInterface;
+use Atlas\AI\ChatRequest;
 
 class OpenAIClient implements LLMInterface
 {
-    public function chat(string $message): string
+    public function chat(ChatRequest $request): string
     {
-        return "OpenAI: {$message}";
+        return "OpenAI: {$request->message}";
     }
 }

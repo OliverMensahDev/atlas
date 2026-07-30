@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\QuestionHelper;
+use Atlas\AI\ChatRequest;
 use Symfony\Component\Console\Question\Question;
 
 class ChatCommand extends Command
@@ -69,11 +70,11 @@ class ChatCommand extends Command
                 $output->writeln('<info>Goodbye.</info>');
                 break;
             }
-
-            $response = $this->service->reply(
-                $message,
-                $provider
+            $request = new ChatRequest(
+                message: $text,
+                provider: $provider
             );
+            $response = $this->service->reply($request);
             $output->writeln($response);
         }
 

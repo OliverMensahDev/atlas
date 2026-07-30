@@ -5,10 +5,10 @@ namespace Atlas\AI\Providers;
 use Atlas\AI\ChatRequest;
 use Atlas\AI\Contracts\LLMInterface;
 
-class AnthropicClient implements LLMInterface
+class DigitalOceanInferenceClient implements LLMInterface
 {
     public function chat(ChatRequest $request): string
     {
-        return "Anthropic: {$request->message}";
+        return "DigitalOcean Inference: {$request->message}";
     }
 }
